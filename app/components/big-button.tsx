@@ -1,9 +1,13 @@
 import { PRIMARY, PRIMARY_FOREGROUND } from "@/lib/constants/colors";
 import { Pressable, StyleSheet, Text } from "react-native";
 
-export default function BigButton({ children }: { children: React.ReactNode }) {
+interface Props {
+  onPress?: () => void;
+  children: React.ReactNode;
+}
+export default function BigButton({ onPress, children }: Props) {
   return (
-    <Pressable style={styles.button}>
+    <Pressable style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{children}</Text>
     </Pressable>
   );

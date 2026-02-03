@@ -2,8 +2,9 @@ import { Stack } from "expo-router";
 
 export default function OnboardingLayout() {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack initialRouteName="name" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="name" />
+      <Stack.Screen name="gender" />
     </Stack>
   );
 }

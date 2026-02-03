@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     color: FOREGROUND,
-    paddingTop: 80,
+    paddingTop: 32,
     paddingHorizontal: 28,
   },
 });

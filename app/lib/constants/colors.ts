@@ -11,3 +11,5 @@ export const BORDER = "#404D64";
 
 export const INPUT = "#404D64";
 export const INPUT_GLASS = "rgb(64, 77, 100, 0.2)";
+
+export const ACCENT = "#6CCCFF";

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { BORDER, FOREGROUND, INPUT_GLASS } from "./colors";
+import { FOREGROUND } from "./colors";
 
 export const globalStyles = StyleSheet.create({
   title: {

@@ -4,8 +4,10 @@ import ContentContainer from "@/components/content-container";
 import { globalStyles } from "@/lib/constants/styles";
 import TextInput from "@/components/form/text-input";
 import BigButton from "@/components/big-button";
+import { useRouter } from "expo-router";
 
 export default function OnboardingName() {
+  const router = useRouter();
   const [name, setName] = useState("");
 
   return (
@@ -14,7 +16,7 @@ export default function OnboardingName() {
         <Text style={globalStyles.title}>What&apos;s your name?</Text>
         <TextInput value={name} setValue={setName} placeholder="George" />
       </View>
-      <BigButton>Continue</BigButton>
+      <BigButton onPress={() => router.navigate("/gender")}>Continue</BigButton>
     </ContentContainer>
   );
 }
@@ -22,5 +24,6 @@ export default function OnboardingName() {
 const styles = StyleSheet.create({
   mainContentContainer: {
     flex: 1,
+    paddingTop: 52,
   },
 });
