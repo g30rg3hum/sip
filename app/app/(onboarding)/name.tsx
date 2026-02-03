@@ -1,6 +1,5 @@
-import { PRIMARY, PRIMARY_FOREGROUND } from "@/lib/constants/colors";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import ContentContainer from "@/components/content-container";
 import { globalStyles } from "@/lib/constants/styles";
 import TextInput from "@/components/form/text-input";
