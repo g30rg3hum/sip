@@ -1,33 +1,36 @@
+import BigButton from "@/components/big-button";
+import ContentContainer from "@/components/content-container";
+import RulerScrollInput from "@/components/form/ruler-scroll-input";
+import { FOREGROUND } from "@/lib/constants/colors";
+import { globalStyles } from "@/lib/constants/styles";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import ContentContainer from "@/components/content-container";
-import { globalStyles } from "@/lib/constants/styles";
-import BigButton from "@/components/big-button";
-import { useRouter } from "expo-router";
-import RadioInput from "@/components/form/radio-input";
-import { FOREGROUND } from "@/lib/constants/colors";
 
-const genders = ["male", "female"];
-export default function OnboardingGender() {
+export default function OnboardingHeight() {
   const router = useRouter();
-  const [gender, setGender] = useState<string>("male");
+
+  const [height, setHeight] = useState<number>(170);
 
   return (
-    <ContentContainer gradientX={0.8}>
+    <ContentContainer gradientX={0.3}>
       <View style={styles.mainContentContainer}>
         <Pressable style={styles.backButton} onPress={() => router.back()}>
           <Text style={styles.backText}>Back</Text>
         </Pressable>
-        <Text style={globalStyles.title}>What&apos;s your gender?</Text>
-        <RadioInput
-          values={genders}
-          selectedValue={gender}
-          onValueChange={setGender}
+        <Text style={globalStyles.title}>How tall are you?</Text>
+        <RulerScrollInput
+          min={120}
+          max={200}
+          initial={170}
+          onValueChange={setHeight}
+          markedIntervals={5}
+          units={"cm"}
         />
       </View>
       <BigButton
         onPress={() => {
-          router.navigate("/(onboarding)/height");
+          router.navigate("/(onboarding)/weight");
         }}
       >
         Continue
