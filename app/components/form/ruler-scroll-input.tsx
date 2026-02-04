@@ -2,7 +2,7 @@ import { ACCENT, FOREGROUND, MUTED_FOREGROUND } from "@/lib/constants/colors";
 import { useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 
-const STEP_WIDTH = 32; // px between each tick
+const STEP_WIDTH = 34; // px between each tick
 let { width } = Dimensions.get("window");
 width -= 56; // horizontal paddings of 28
 const CENTER = width / 2;

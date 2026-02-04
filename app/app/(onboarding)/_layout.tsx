@@ -7,6 +7,9 @@ export default function OnboardingLayout() {
       <Stack.Screen name="gender" />
       <Stack.Screen name="height" />
       <Stack.Screen name="weight" />
+      <Stack.Screen name="activity" />
+      <Stack.Screen name="climate" />
+      <Stack.Screen name="notifications" />
     </Stack>
   );
 }

@@ -7,8 +7,13 @@ import {
 import { GlassView } from "expo-glass-effect";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+interface Value {
+  value: string;
+  description: string | undefined;
+}
+
 interface Props {
-  values: string[];
+  values: Value[];
   selectedValue: string;
   onValueChange: (value: string) => void;
 }
@@ -23,15 +28,16 @@ export default function RadioInput({
         <GlassView isInteractive style={styles.glassView} key={key}>
           <Pressable
             style={styles.radioButton}
-            onPress={() => onValueChange(value)}
+            onPress={() => onValueChange(value.value)}
           >
             <Text style={styles.valueText}>
-              {value.charAt(0).toUpperCase() + value.slice(1)}
+              {value.value.charAt(0).toUpperCase() + value.value.slice(1)}{" "}
+              {value.description && `(${value.description})`}
             </Text>
             <View
               style={[
                 styles.circle,
-                selectedValue === value && styles.circleActive,
+                selectedValue === value.value && styles.circleActive,
               ]}
             />
           </Pressable>

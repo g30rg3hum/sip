@@ -7,13 +7,14 @@ import { useRouter } from "expo-router";
 import RadioInput from "@/components/form/radio-input";
 import { FOREGROUND } from "@/lib/constants/colors";
 
-const genders = [
-  { value: "male", description: undefined },
-  { value: "female", description: undefined },
+const climates = [
+  { value: "cold", description: undefined },
+  { value: "temperate", description: undefined },
+  { value: "tropical", description: undefined },
 ];
-export default function OnboardingGender() {
+export default function OnboardingClimate() {
   const router = useRouter();
-  const [gender, setGender] = useState<string>("male");
+  const [climate, setClimate] = useState<string>("temperate");
 
   return (
     <ContentContainer gradientX={0.8}>
@@ -21,16 +22,16 @@ export default function OnboardingGender() {
         <Pressable style={styles.backButton} onPress={() => router.back()}>
           <Text style={styles.backText}>Back</Text>
         </Pressable>
-        <Text style={globalStyles.title}>What&apos;s your gender?</Text>
+        <Text style={globalStyles.title}>What climate do you live in?</Text>
         <RadioInput
-          values={genders}
-          selectedValue={gender}
-          onValueChange={setGender}
+          values={climates}
+          selectedValue={climate}
+          onValueChange={setClimate}
         />
       </View>
       <BigButton
         onPress={() => {
-          router.navigate("/(onboarding)/height");
+          router.navigate("/(onboarding)/notifications");
         }}
       >
         Continue

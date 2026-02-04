@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { FOREGROUND } from "./colors";
+import { FOREGROUND, MUTED_FOREGROUND } from "./colors";
 
 export const globalStyles = StyleSheet.create({
   title: {
@@ -8,5 +8,11 @@ export const globalStyles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Lexend_700Bold",
     marginBottom: 32,
+  },
+  description: {
+    fontSize: 16,
+    fontFamily: "Lexend_400Regular",
+    color: MUTED_FOREGROUND,
+    textAlign: "center",
   },
 });

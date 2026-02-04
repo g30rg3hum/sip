@@ -27,7 +27,13 @@ export default function OnboardingWeight() {
           onValueChange={setWeight}
         />
       </View>
-      <BigButton onPress={() => {}}>Continue</BigButton>
+      <BigButton
+        onPress={() => {
+          router.navigate("/(onboarding)/activity");
+        }}
+      >
+        Continue
+      </BigButton>
     </ContentContainer>
   );
 }
