@@ -1,7 +1,7 @@
 import {
-  BORDER,
+  // BORDER,
   FOREGROUND,
-  INPUT_GLASS,
+  // INPUT_GLASS,
   MUTED_FOREGROUND,
 } from "@/lib/constants/colors";
 import { GlassView } from "expo-glass-effect";
@@ -14,12 +14,18 @@ interface Props {
   placeholder?: string;
   keyboardType?: KeyboardTypeOptions;
 }
-export default function TextInput({ setValue, value, placeholder, keyboardType = "default" }: Props) {
+export default function TextInput({
+  setValue,
+  value,
+  placeholder,
+  keyboardType = "default",
+}: Props) {
   return (
     <GlassView
       isInteractive
       style={styles.glassView}
-      glassEffectStyle="regular"
+      glassEffectStyle="clear"
+      tintColor="rgba(0, 0, 0, 0.25)"
     >
       <RNTextInput
         style={styles.input}
@@ -41,12 +47,13 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 14,
     height: 48,
-    borderWidth: 1,
-    borderColor: BORDER,
+    // borderWidth: 1,
+    // borderColor: BORDER,
     borderRadius: 24,
     paddingHorizontal: 24,
     fontFamily: "Lexend_400Regular",
     color: FOREGROUND,
-    backgroundColor: INPUT_GLASS,
+    // backgroundColor: INPUT_GLASS,
+    // backgroundColor: "none",
   },
 });

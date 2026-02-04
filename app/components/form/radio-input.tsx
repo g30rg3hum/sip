@@ -25,7 +25,13 @@ export default function RadioInput({
   return (
     <View style={styles.container}>
       {values.map((value, key) => (
-        <GlassView isInteractive style={styles.glassView} key={key}>
+        <GlassView
+          isInteractive
+          style={styles.glassView}
+          glassEffectStyle="clear"
+          tintColor="rgba(0, 0, 0, 0.25)"
+          key={key}
+        >
           <Pressable
             style={styles.radioButton}
             onPress={() => onValueChange(value.value)}
@@ -56,11 +62,11 @@ const styles = StyleSheet.create({
   },
   radioButton: {
     height: 48,
-    borderWidth: 1,
-    borderColor: BORDER,
+    // borderWidth: 1,
+    // borderColor: BORDER,
     borderRadius: 24,
     paddingHorizontal: 24,
-    backgroundColor: INPUT_GLASS,
+    // backgroundColor: INPUT_GLASS,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

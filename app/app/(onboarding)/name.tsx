@@ -11,24 +11,24 @@ import { DANGER } from "@/lib/constants/colors";
 export default function OnboardingName() {
   const router = useRouter();
   const [name, setName] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
   const submitName = async (name: string) => {
     // validate: non-empty, only letters and spaces, max length 20
     name = name.trim();
 
     if (!name) {
-      setError("Please fill the field in.");
+      alert("Please fill the field in.");
       return { success: false };
     }
 
     if (!/^[a-zA-Z\s]+$/.test(name)) {
-      setError("Only use letters and spaces.");
+      alert("Only use letters and spaces.");
       return { success: false };
     }
 
     if (name.length > 20) {
-      setError("Maximum 20 characters.");
+      alert("Maximum 20 characters.");
       return { success: false };
     }
 
@@ -36,11 +36,11 @@ export default function OnboardingName() {
       await AsyncStorage.setItem("name", name);
     } catch (error) {
       console.error("Error saving name to AsyncStorage:", error);
-      setError("An error occurred. Please contact support.");
+      alert("An error occurred. Please contact support.");
       return { success: false };
     }
 
-    setError("");
+    // setError("");
     return { success: true };
   };
 
@@ -49,7 +49,7 @@ export default function OnboardingName() {
       <View style={styles.mainContentContainer}>
         <Text style={globalStyles.title}>What&apos;s your name?</Text>
         <TextInput value={name} setValue={setName} placeholder="George" />
-        <Text style={styles.errorText}>{error}</Text>
+        {/* <Text style={styles.errorText}>{error}</Text> */}
       </View>
       <BigButton
         onPress={async () => {

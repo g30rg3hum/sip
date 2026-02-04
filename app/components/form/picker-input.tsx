@@ -24,7 +24,12 @@ export default function PickerInput({ setValue, value, values, text }: Props) {
         <Pressable onPress={() => setOpen(false)} style={styles.backOverlay} />
       )}
       {open && (
-        <GlassView isInteractive style={styles.popup} glassEffectStyle="clear">
+        <GlassView
+          isInteractive
+          style={styles.popup}
+          glassEffectStyle="clear"
+          tintColor="rgba(0, 0, 0, 0.25)"
+        >
           <ScrollView showsVerticalScrollIndicator={false}>
             <View>
               {values.map((val) => (
@@ -54,7 +59,8 @@ export default function PickerInput({ setValue, value, values, text }: Props) {
       <GlassView
         isInteractive
         style={styles.glassView}
-        glassEffectStyle="regular"
+        glassEffectStyle="clear"
+        tintColor="rgba(0, 0, 0, 0.25)"
       >
         <Pressable
           style={styles.buttonContainer}
@@ -93,15 +99,15 @@ const styles = StyleSheet.create({
     bottom: "100%",
     left: "50%",
     width: "50%",
-    backgroundColor: "rgb(64, 77, 100, 0.05)",
-    borderWidth: 1,
-    borderColor: BORDER,
+    // backgroundColor: "rgba(64, 77, 100, 0)",
+    // borderWidth: 1,
+    // borderColor: BORDER,
     borderRadius: 24,
     marginBottom: 16,
     paddingHorizontal: 32,
     paddingVertical: 20,
     maxHeight: 180,
-    overflow: "hidden",
+    // overflow: "hidden",
     zIndex: 30,
   },
   glassView: {
@@ -110,11 +116,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     fontSize: 14,
     height: 48,
-    borderWidth: 1,
-    borderColor: BORDER,
+    // borderWidth: 1,
+    // borderColor: BORDER,
     borderRadius: 24,
     paddingHorizontal: 24,
-    backgroundColor: INPUT_GLASS,
+    // backgroundColor: INPUT_GLASS,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 8,
     borderLeftColor: "transparent",
     borderRightColor: "transparent",
-    borderBottomColor: BORDER,
+    borderBottomColor: FOREGROUND,
   },
   valueBottomTriangle: {
     width: 0,
@@ -153,7 +159,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 8,
     borderLeftColor: "transparent",
     borderRightColor: "transparent",
-    borderTopColor: BORDER,
+    borderTopColor: FOREGROUND,
   },
   pickerItem: {
     paddingVertical: 12,

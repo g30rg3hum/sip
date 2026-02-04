@@ -32,11 +32,27 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }} initialRouteName="(tabs)">
         <Stack.Screen name="(onboarding)" />
         <Stack.Screen name="(tabs)" />
+
+        {/* Settings form sheets */}
+        <Stack.Screen
+          name="change-name"
+          options={{
+            presentation: "formSheet",
+            sheetAllowedDetents: [0.25],
+            contentStyle: {
+              backgroundColor: "#101319",
+            },
+            sheetGrabberVisible: true,
+          }}
+        />
+
+        {/* Actions form sheets */}
         <Stack.Screen
           name="add-drink"
           options={{
             presentation: "formSheet",
             contentStyle: { backgroundColor: "#101319" },
+            sheetGrabberVisible: true,
           }}
         />
       </Stack>

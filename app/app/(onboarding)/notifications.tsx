@@ -37,7 +37,8 @@ export default function OnboardingNotifications() {
         <GlassView
           isInteractive
           style={styles.glassView}
-          tintColor="rgba(0, 0, 0, 0.60)"
+          glassEffectStyle="clear"
+          tintColor="rgba(255, 255, 255, 0.25)"
         >
           <View style={styles.notificationContainer}>
             <Image source={appIcon} style={styles.appIcon} />
