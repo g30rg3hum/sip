@@ -3,14 +3,13 @@ import {
   Canvas,
   Fill,
   Group,
-  Path,
   Skia,
   Text,
   useFont,
 } from "@shopify/react-native-skia";
-import { Dimensions } from "react-native";
+import { Dimensions, Pressable, StyleSheet } from "react-native";
 import { area, scaleLinear } from "d3";
-import { ACCENT, FOREGROUND } from "@/lib/constants/colors";
+import { ACCENT, BORDER, FOREGROUND } from "@/lib/constants/colors";
 import {
   Easing,
   useDerivedValue,
@@ -18,11 +17,16 @@ import {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+// import { Link } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { GlassView } from "expo-glass-effect";
+import { SymbolView } from "expo-symbols";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 export default function Index() {
+  const insets = useSafeAreaInsets();
   const translateXAnimated = useSharedValue(0);
   const translateYPercent = useSharedValue(0);
 
@@ -101,6 +105,21 @@ export default function Index() {
 
   return (
     <ContentContainer padding={false}>
+      <GlassView
+        isInteractive
+        glassEffectStyle="clear"
+        tintColor="rgba(23, 23, 23, 0.75)"
+        style={[styles.addButton, { bottom: 16 + insets.bottom }]}
+      >
+        <Pressable onPress={() => {}}>
+          <SymbolView
+            name="plus"
+            style={styles.plusSymbol}
+            tintColor={FOREGROUND}
+          />
+        </Pressable>
+      </GlassView>
+
       <Canvas style={{ flex: 1 }}>
         <Text
           text={text}
@@ -125,3 +144,18 @@ export default function Index() {
     </ContentContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  addButton: {
+    position: "absolute",
+    right: 26,
+    borderRadius: 25,
+    padding: 10,
+    overflow: "hidden",
+    zIndex: 10,
+  },
+  plusSymbol: {
+    width: 24,
+    height: 24,
+  },
+});
