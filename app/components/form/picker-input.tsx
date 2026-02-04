@@ -6,14 +6,7 @@ import {
   MUTED_FOREGROUND,
 } from "@/lib/constants/colors";
 import { GlassView } from "expo-glass-effect";
-import {
-  Modal,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
 
 interface Props {
@@ -31,7 +24,7 @@ export default function PickerInput({ setValue, value, values, text }: Props) {
         <Pressable onPress={() => setOpen(false)} style={styles.backOverlay} />
       )}
       {open && (
-        <View style={styles.popup}>
+        <GlassView isInteractive style={styles.popup} glassEffectStyle="clear">
           <ScrollView showsVerticalScrollIndicator={false}>
             <View>
               {values.map((val) => (
@@ -55,7 +48,7 @@ export default function PickerInput({ setValue, value, values, text }: Props) {
               ))}
             </View>
           </ScrollView>
-        </View>
+        </GlassView>
       )}
 
       <GlassView
@@ -100,7 +93,7 @@ const styles = StyleSheet.create({
     bottom: "100%",
     left: "50%",
     width: "50%",
-    backgroundColor: INPUT_GLASS,
+    backgroundColor: "rgb(64, 77, 100, 0.05)",
     borderWidth: 1,
     borderColor: BORDER,
     borderRadius: 24,

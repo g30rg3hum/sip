@@ -6,6 +6,7 @@ import BigButton from "@/components/big-button";
 import { useRouter } from "expo-router";
 import RadioInput from "@/components/form/radio-input";
 import { FOREGROUND } from "@/lib/constants/colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const genders = [
   { value: "male", description: undefined },
@@ -14,6 +15,16 @@ const genders = [
 export default function OnboardingGender() {
   const router = useRouter();
   const [gender, setGender] = useState<string>("male");
+
+  const submitGender = async (gender: string) => {
+    try {
+      await AsyncStorage.setItem("gender", gender);
+      return { success: true };
+    } catch (error) {
+      console.error("Error saving gender to AsyncStorage:", error);
+      return { success: false };
+    }
+  };
 
   return (
     <ContentContainer gradientX={0.8}>
@@ -29,8 +40,11 @@ export default function OnboardingGender() {
         />
       </View>
       <BigButton
-        onPress={() => {
-          router.navigate("/(onboarding)/height");
+        onPress={async () => {
+          const { success } = await submitGender(gender);
+          if (success) {
+            return router.navigate("/(onboarding)/height");
+          }
         }}
       >
         Continue

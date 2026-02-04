@@ -6,6 +6,7 @@ import BigButton from "@/components/big-button";
 import { useRouter } from "expo-router";
 import RadioInput from "@/components/form/radio-input";
 import { FOREGROUND } from "@/lib/constants/colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const activityLevels = [
   { value: "sedentary", description: "no exercise" },
@@ -16,6 +17,16 @@ const activityLevels = [
 export default function OnboardingActivity() {
   const router = useRouter();
   const [activityLevel, setActivityLevel] = useState<string>("sedentary");
+
+  const submitActivityLevel = async (activityLevel: string) => {
+    try {
+      await AsyncStorage.setItem("activityLevel", activityLevel);
+      return { success: true };
+    } catch (error) {
+      console.error("Error saving activity level to AsyncStorage:", error);
+      return { success: false };
+    }
+  };
 
   return (
     <ContentContainer gradientX={0.8}>
@@ -31,8 +42,12 @@ export default function OnboardingActivity() {
         />
       </View>
       <BigButton
-        onPress={() => {
-          router.navigate("/(onboarding)/climate");
+        onPress={async () => {
+          const { success } = await submitActivityLevel(activityLevel);
+
+          if (success) {
+            router.navigate("/(onboarding)/climate");
+          }
         }}
       >
         Continue

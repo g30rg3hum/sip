@@ -3,6 +3,7 @@ import ContentContainer from "@/components/content-container";
 import PlainScrollInput from "@/components/form/plain-scroll-input";
 import { FOREGROUND } from "@/lib/constants/colors";
 import { globalStyles } from "@/lib/constants/styles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -11,6 +12,16 @@ export default function OnboardingWeight() {
   const router = useRouter();
 
   const [weight, setWeight] = useState<number>(170);
+
+  const submitWeight = async (weight: number) => {
+    try {
+      await AsyncStorage.setItem("weight", weight.toString());
+      return { success: true };
+    } catch (error) {
+      console.error("Error saving weight to AsyncStorage:", error);
+      return { success: false };
+    }
+  };
 
   return (
     <ContentContainer gradientX={0.6}>
@@ -28,8 +39,12 @@ export default function OnboardingWeight() {
         />
       </View>
       <BigButton
-        onPress={() => {
-          router.navigate("/(onboarding)/activity");
+        onPress={async () => {
+          const { success } = await submitWeight(weight);
+
+          if (success) {
+            router.navigate("/(onboarding)/activity");
+          }
         }}
       >
         Continue
