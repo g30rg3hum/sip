@@ -29,8 +29,9 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack screenOptions={{ headerShown: false }} initialRouteName="(tabs)">
         <Stack.Screen name="(onboarding)" />
+        <Stack.Screen name="(tabs)" />
       </Stack>
     </SafeAreaProvider>
   );
