@@ -6,14 +6,15 @@ import {
 } from "@/lib/constants/colors";
 import { GlassView } from "expo-glass-effect";
 import { StyleSheet } from "react-native";
-import { TextInput as RNTextInput } from "react-native";
+import { KeyboardTypeOptions, TextInput as RNTextInput } from "react-native";
 
 interface Props {
   setValue: (text: string) => void;
   value: string;
   placeholder?: string;
+  keyboardType?: KeyboardTypeOptions;
 }
-export default function TextInput({ setValue, value, placeholder }: Props) {
+export default function TextInput({ setValue, value, placeholder, keyboardType = "default" }: Props) {
   return (
     <GlassView
       isInteractive
@@ -23,7 +24,7 @@ export default function TextInput({ setValue, value, placeholder }: Props) {
       <RNTextInput
         style={styles.input}
         autoCapitalize="words"
-        keyboardType="default"
+        keyboardType={keyboardType}
         placeholder={placeholder}
         onChangeText={setValue}
         value={value}

@@ -18,7 +18,7 @@ import {
   withTiming,
 } from "react-native-reanimated";
 import { useEffect, useState } from "react";
-// import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GlassView } from "expo-glass-effect";
 import { SymbolView } from "expo-symbols";
@@ -26,6 +26,7 @@ import { SymbolView } from "expo-symbols";
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 export default function Index() {
+  const router = useRouter();
   const insets = useSafeAreaInsets();
   const translateXAnimated = useSharedValue(0);
   const translateYPercent = useSharedValue(0);
@@ -111,7 +112,7 @@ export default function Index() {
         tintColor="rgba(23, 23, 23, 0.75)"
         style={[styles.addButton, { bottom: 16 + insets.bottom }]}
       >
-        <Pressable onPress={() => {}}>
+        <Pressable onPress={() => router.push("/add-drink")}>
           <SymbolView
             name="plus"
             style={styles.plusSymbol}

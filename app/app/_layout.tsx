@@ -32,6 +32,13 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }} initialRouteName="(tabs)">
         <Stack.Screen name="(onboarding)" />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="add-drink"
+          options={{
+            presentation: "formSheet",
+            contentStyle: { backgroundColor: "#101319" },
+          }}
+        />
       </Stack>
     </SafeAreaProvider>
   );
