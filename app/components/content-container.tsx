@@ -7,13 +7,16 @@ import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Svg, { Defs, RadialGradient, Rect, Stop } from "react-native-svg";
 
-export default function ContentContainer({
-  gradientX = 0.1,
-  children,
-}: {
+interface Props {
   children: React.ReactNode;
   gradientX?: number;
-}) {
+  padding?: boolean;
+}
+export default function ContentContainer({
+  gradientX = 0.1,
+  padding = true,
+  children,
+}: Props) {
   return (
     <View className="flex-1" style={styles.overallContainer}>
       <Svg
@@ -36,7 +39,11 @@ export default function ContentContainer({
         <Rect width="100%" height="50%" fill="url(#radialGradient)" />
       </Svg>
       {/* Applies the relevant padding. */}
-      <SafeAreaView style={styles.contentContainer}>{children}</SafeAreaView>
+      {padding ? (
+        <SafeAreaView style={styles.contentContainer}>{children}</SafeAreaView>
+      ) : (
+        <>{children}</>
+      )}
     </View>
   );
 }

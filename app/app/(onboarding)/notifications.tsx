@@ -64,7 +64,7 @@ export default function OnboardingNotifications() {
 
         <BigButton
           onPress={() => {
-            // router.navigate("/(onboarding)/climate");
+            router.navigate("/");
           }}
         >
           Allow and Save
