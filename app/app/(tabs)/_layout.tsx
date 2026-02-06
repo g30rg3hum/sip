@@ -1,6 +1,5 @@
 import { ACCENT, BORDER, FOREGROUND } from "@/lib/constants/colors";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
-import { View } from "react-native";
 
 export default function TabsLayout() {
   return (

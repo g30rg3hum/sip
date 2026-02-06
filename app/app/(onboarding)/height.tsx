@@ -1,6 +1,7 @@
 import BigButton from "@/components/big-button";
 import ContentContainer from "@/components/content-container";
 import RulerScrollInput from "@/components/form/ruler-scroll-input";
+import SegmentedControlInput from "@/components/form/segmented-control-input";
 import { FOREGROUND } from "@/lib/constants/colors";
 import { globalStyles } from "@/lib/constants/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -12,10 +13,12 @@ export default function OnboardingHeight() {
   const router = useRouter();
 
   const [height, setHeight] = useState<number>(170);
+  const [unit, setUnit] = useState<string>("cm");
 
-  const submitHeight = async (height: number) => {
+  const submitHeight = async () => {
     try {
       await AsyncStorage.setItem("height", height.toString());
+      await AsyncStorage.setItem("heightUnit", unit);
       return { success: true };
     } catch (error) {
       console.error("Error saving height to AsyncStorage:", error);
@@ -30,18 +33,39 @@ export default function OnboardingHeight() {
           <Text style={styles.backText}>Back</Text>
         </Pressable>
         <Text style={globalStyles.title}>How tall are you?</Text>
-        <RulerScrollInput
-          min={120}
-          max={200}
-          initial={170}
-          onValueChange={setHeight}
-          markedIntervals={5}
-          units={"cm"}
-        />
+
+        <View style={styles.segmentedControlInputContainer}>
+          <SegmentedControlInput
+            selectedOption={unit}
+            setSelectedOption={setUnit}
+            options={["cm", "inch"]}
+          />
+        </View>
+
+        {unit === "cm" && (
+          <RulerScrollInput
+            min={120}
+            max={200}
+            initial={170}
+            onValueChange={setHeight}
+            markedIntervals={5}
+            units={"cm"}
+          />
+        )}
+        {unit === "inch" && (
+          <RulerScrollInput
+            min={48}
+            max={84}
+            initial={65}
+            onValueChange={setHeight}
+            markedIntervals={6}
+            units={"inches"}
+          />
+        )}
       </View>
       <BigButton
         onPress={async () => {
-          const { success } = await submitHeight(height);
+          const { success } = await submitHeight();
 
           if (success) {
             router.navigate("/(onboarding)/weight");
@@ -64,5 +88,9 @@ const styles = StyleSheet.create({
   backText: {
     fontSize: 16,
     color: FOREGROUND,
+  },
+  segmentedControlInputContainer: {
+    marginBottom: 28,
+    marginLeft: "auto",
   },
 });

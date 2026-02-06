@@ -8,6 +8,7 @@ import {
 } from "@expo-google-fonts/lexend";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { Appearance } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,6 +17,10 @@ export default function RootLayout() {
     Lexend_400Regular,
     Lexend_700Bold,
   });
+
+  useEffect(() => {
+    Appearance.setColorScheme("dark");
+  }, []);
 
   useEffect(() => {
     if (loaded || error) {
@@ -29,7 +34,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false }} initialRouteName="(tabs)">
+      <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(onboarding)" />
         <Stack.Screen name="(tabs)" />
 

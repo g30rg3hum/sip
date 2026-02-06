@@ -1,4 +1,5 @@
 import { ACCENT, FOREGROUND, MUTED_FOREGROUND } from "@/lib/constants/colors";
+import { convertInchesIntoFeetAndInches } from "@/lib/helpers/metrics";
 import { useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -11,7 +12,7 @@ interface Props {
   min: number;
   max: number;
   initial: number;
-  units: string;
+  units: "cm" | "inches";
   markedIntervals: number;
   onValueChange: (value: number) => void;
 }
@@ -38,11 +39,12 @@ export default function RulerScrollInput({
 
   const ticks = Array.from({ length: max - min + 1 }, (_, i) => i + min);
 
+  const text =
+    units === "cm" ? `${value} cm` : convertInchesIntoFeetAndInches(value);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.unitsText}>
-        {value} {units}
-      </Text>
+      <Text style={styles.unitsText}>{text}</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -61,6 +63,9 @@ export default function RulerScrollInput({
         {ticks.map((tick) => {
           const isMarked = tick % markedIntervals === 0;
           const isValue = tick === value;
+
+          const markerText =
+            units === "cm" ? `${tick}` : convertInchesIntoFeetAndInches(tick);
 
           return (
             <View key={tick} style={styles.tickContainer}>
@@ -87,7 +92,7 @@ export default function RulerScrollInput({
                     },
                   ]}
                 >
-                  {tick}
+                  {markerText}
                 </Text>
               )}
             </View>
@@ -119,6 +124,6 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   markerText: {
-    fontSize: 17,
+    fontSize: 16,
   },
 });

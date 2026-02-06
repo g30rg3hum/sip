@@ -9,7 +9,7 @@ import {
 } from "@shopify/react-native-skia";
 import { Dimensions, Pressable, StyleSheet } from "react-native";
 import { area, scaleLinear } from "d3";
-import { ACCENT, BORDER, FOREGROUND } from "@/lib/constants/colors";
+import { ACCENT, FOREGROUND } from "@/lib/constants/colors";
 import {
   Easing,
   useDerivedValue,

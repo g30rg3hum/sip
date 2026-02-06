@@ -2,7 +2,8 @@ import ContentContainer from "@/components/content-container";
 import ActivityGraph from "@/components/viz/activity-graph";
 import { ACCENT, FOREGROUND, MUTED_FOREGROUND } from "@/lib/constants/colors";
 import { GlassView } from "expo-glass-effect";
-import { Link } from "expo-router";
+import { Link, useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
@@ -12,43 +13,71 @@ const windowWidth = Dimensions.get("window").width;
 const activityGraphWidth = windowWidth - 28 * 2 - 24 * 2 - 4 * 2 * 7;
 
 export default function Analytics() {
+  // workaround
+  // glass effect issues when navigating first time to screen (due to native tabs)
+  const [glassReady, setGlassReady] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      // during idle periods; after all high prio work like naimations has finished.
+      requestIdleCallback(() => {
+        setGlassReady(true);
+      });
+      return () => {
+        setGlassReady(false);
+      };
+    }, []),
+  );
+
+  const CardWrapper = glassReady ? GlassView : View;
+  const glassProps = glassReady
+    ? {
+        isInteractive: true,
+        glassEffectStyle: "clear" as const,
+        tintColor: "rgba(0, 0, 0, 0.25)",
+      }
+    : {};
+
+  const regularContainerStyle = {
+    backgroundColor: "#1A1C21",
+    borderWidth: 1,
+    borderColor: "#272A34",
+  };
+
   return (
-    <ContentContainer gradientX={0.45}>
-      <ScrollView style={styles.scrollViewContainer}>
+    <ContentContainer gradientX={0.45} padding={true}>
+      <ScrollView
+        style={styles.scrollViewContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.container}>
-          <GlassView
-            isInteractive
-            style={styles.cardContainer}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
+          <CardWrapper
+            {...glassProps}
+            style={[styles.cardContainer, !glassReady && regularContainerStyle]}
           >
             <Text style={styles.cardTitle}>Current streak</Text>
             <Text style={[styles.cardStat, { color: ACCENT }]}>🔥 10 days</Text>
-          </GlassView>
+          </CardWrapper>
 
-          <GlassView
-            isInteractive
-            style={styles.cardContainer}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
+          <CardWrapper
+            {...glassProps}
+            style={[styles.cardContainer, !glassReady && regularContainerStyle]}
           >
             <Text style={styles.cardTitle}>Longest streak</Text>
             <Text style={styles.cardStat}> 14 days</Text>
-          </GlassView>
+          </CardWrapper>
 
-          <GlassView
-            isInteractive
-            style={styles.cardContainer}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
+          <CardWrapper
+            {...glassProps}
+            style={[styles.cardContainer, !glassReady && regularContainerStyle]}
           >
             <Text style={styles.cardTitle}>February 2025</Text>
             <Text style={styles.cardDescription}>14/28</Text>
             <ActivityGraph columns={7} containerWidth={activityGraphWidth} />
-          </GlassView>
-        </View>
+          </CardWrapper>
 
-        <Link href="/(onboarding)/name">Temp</Link>
+          <Link href="/(onboarding)/name">Temp</Link>
+        </View>
       </ScrollView>
     </ContentContainer>
   );
