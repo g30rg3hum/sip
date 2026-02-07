@@ -9,66 +9,72 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function OnboardingHeight() {
+export default function OnboardingWaterBottle() {
   const router = useRouter();
 
-  const [height, setHeight] = useState<number>(170);
-  const [unit, setUnit] = useState<string>("cm");
+  const [capacity, setCapacity] = useState<number>(1500);
+  const [unit, setUnit] = useState<string>("ml"); // or oz
 
-  const submitHeight = async () => {
+  const submitCapacity = async () => {
     try {
-      await AsyncStorage.setItem("height", height.toString());
-      await AsyncStorage.setItem("heightUnit", unit);
+      await AsyncStorage.setItem("waterBottleCapacity", capacity.toString());
+      await AsyncStorage.setItem("waterBottleCapacityUnit", unit);
       return { success: true };
     } catch (error) {
-      console.error("Error saving height to AsyncStorage:", error);
+      console.error(
+        "Error saving water bottle capacity to AsyncStorage:",
+        error,
+      );
       return { success: false };
     }
   };
 
   return (
-    <ContentContainer gradientX={0.3}>
+    <ContentContainer gradientX={0.6}>
       <View style={styles.mainContentContainer}>
         <Pressable style={styles.backButton} onPress={() => router.back()}>
           <Text style={styles.backText}>Back</Text>
         </Pressable>
-        <Text style={globalStyles.title}>How tall are you?</Text>
+        <Text style={globalStyles.title}>
+          What is the capacity of your water bottle?
+        </Text>
 
         <View style={styles.segmentedControlInputContainer}>
           <SegmentedControlInput
             selectedOption={unit}
             setSelectedOption={setUnit}
-            options={["cm", "inch"]}
+            options={["ml", "oz"]}
           />
         </View>
 
-        {unit === "cm" && (
+        {unit === "ml" && (
           <RulerScrollInput
-            min={120}
-            max={200}
-            initial={170}
-            onValueChange={setHeight}
-            markedIntervals={5}
-            units={"cm"}
+            min={250}
+            max={3000}
+            initial={1000}
+            units="ml"
+            onValueChange={setCapacity}
+            markedIntervals={250}
           />
         )}
-        {unit === "inch" && (
+
+        {unit === "oz" && (
           <RulerScrollInput
-            min={48}
-            max={84}
-            initial={66}
-            onValueChange={setHeight}
-            markedIntervals={6}
-            units={"inches"}
+            min={8}
+            max={64}
+            initial={16}
+            units="oz"
+            onValueChange={setCapacity}
+            markedIntervals={4}
           />
         )}
       </View>
       <BigButton
         onPress={async () => {
-          const { success } = await submitHeight();
+          const { success } = await submitCapacity();
 
           if (success) {
-            router.navigate("/(onboarding)/weight");
+            router.navigate("/(onboarding)/notifications");
           }
         }}
       >
@@ -88,7 +94,6 @@ const styles = StyleSheet.create({
   backText: {
     fontSize: 16,
     fontFamily: "Lexend_400Regular",
-
     color: FOREGROUND,
   },
   segmentedControlInputContainer: {

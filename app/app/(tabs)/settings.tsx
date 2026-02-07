@@ -173,6 +173,31 @@ export default function Settings() {
           <Pressable style={styles.buttonContainer}>
             <View style={styles.leftContainer}>
               <SymbolView
+                name="waterbottle"
+                style={styles.icon}
+                tintColor={FOREGROUND}
+              />
+              <Text style={styles.buttonText}>Water bottle</Text>
+            </View>
+            <View style={styles.rightContainer}>
+              <Text style={styles.buttonValue}>1.5L</Text>
+              <SymbolView
+                name="chevron.right"
+                style={styles.chevronIcon}
+                tintColor={FOREGROUND}
+              />
+            </View>
+          </Pressable>
+        </GlassView>
+        <GlassView
+          isInteractive
+          style={styles.glassView}
+          glassEffectStyle="clear"
+          tintColor="rgba(0, 0, 0, 0.25)"
+        >
+          <Pressable style={styles.buttonContainer}>
+            <View style={styles.leftContainer}>
+              <SymbolView
                 name="bell.badge"
                 style={styles.icon}
                 tintColor={FOREGROUND}

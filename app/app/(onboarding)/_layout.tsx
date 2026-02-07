@@ -10,6 +10,7 @@ export default function OnboardingLayout() {
       <Stack.Screen name="weight" />
       <Stack.Screen name="activity" />
       <Stack.Screen name="climate" />
+      <Stack.Screen name="water-bottle" />
       <Stack.Screen name="notifications" />
       <Stack.Screen name="finish" />
     </Stack>
