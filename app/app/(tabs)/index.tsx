@@ -39,7 +39,7 @@ export default function Index() {
   // and can't go higher than max
   const fillPercent = useDerivedValue(() => {
     return Math.max(minValue, Math.min(maxValue, value.value)) / maxValue;
-  }, [value.value]); // for y animation.
+  }, [value]); // for y animation.
 
   useEffect(() => {
     translateXAnimated.value = withRepeat(

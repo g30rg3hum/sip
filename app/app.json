@@ -8,17 +8,13 @@
     "scheme": "app",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
-    "expo": {
-      "web": {
-        "bundler": "metro"
-      }
-    },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.g30rg3hum.sip",
+      "bundleIdentifier": "com.g30rg3hum.sipProject",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "appleTeamId": "TT6UDTP42R"
     },
     "android": {
       "adaptiveIcon": {
@@ -70,6 +66,13 @@
       "eas": {
         "projectId": "d59ebee1-6d3c-4ad2-a13c-995c0c6e1fd3"
       }
+    },
+    "owner": "g30rg3hum",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d59ebee1-6d3c-4ad2-a13c-995c0c6e1fd3"
     }
   }
 }
