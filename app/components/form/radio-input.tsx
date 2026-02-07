@@ -1,9 +1,4 @@
-import {
-  ACCENT,
-  BORDER,
-  FOREGROUND,
-  INPUT_GLASS,
-} from "@/lib/constants/colors";
+import { ACCENT, BORDER, FOREGROUND } from "@/lib/constants/colors";
 import { GlassView } from "expo-glass-effect";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 

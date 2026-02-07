@@ -65,7 +65,8 @@ export default function OnboardingNotifications() {
 
         <BigButton
           onPress={() => {
-            router.navigate("/");
+            router.dismissAll();
+            router.navigate("/(onboarding)/finish");
           }}
         >
           Allow and Save
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
   backText: {
     fontSize: 16,
     color: FOREGROUND,
+    fontFamily: "Lexend_400Regular",
   },
   descriptionContainer: {
     marginBottom: 32,

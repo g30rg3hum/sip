@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 16,
+    fontFamily: "Lexend_400Regular",
+
     color: FOREGROUND,
   },
 });

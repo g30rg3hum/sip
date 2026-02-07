@@ -1,5 +1,5 @@
 import ContentContainer from "@/components/content-container";
-import { FOREGROUND } from "@/lib/constants/colors";
+import { MUTED_FOREGROUND } from "@/lib/constants/colors";
 import { globalStyles } from "@/lib/constants/styles";
 import { Canvas, Fill, Group, Skia } from "@shopify/react-native-skia";
 import { area, scaleLinear } from "d3";
@@ -17,7 +17,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { screenHeight, screenWidth } from "../(tabs)";
 import BigButton from "@/components/big-button";
 
-export default function Welcome() {
+export default function OnboardingWelcome() {
   const router = useRouter();
 
   // TODO: dup code
@@ -106,7 +106,12 @@ export default function Welcome() {
         </View>
 
         <View>
-          <BigButton onPress={() => router.replace("/(onboarding)/name")}>
+          <BigButton
+            onPress={() => {
+              router.dismissAll();
+              router.replace("/(onboarding)/name");
+            }}
+          >
             Get started
           </BigButton>
         </View>
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   description: {
-    color: FOREGROUND,
+    color: MUTED_FOREGROUND,
     fontFamily: "Lexend_400Regular",
   },
 });

@@ -17,7 +17,7 @@ import {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GlassView } from "expo-glass-effect";
