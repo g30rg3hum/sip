@@ -76,7 +76,8 @@ export default function Analytics() {
             <ActivityGraph columns={7} containerWidth={activityGraphWidth} />
           </CardWrapper>
 
-          <Link href="/(onboarding)/name">Temp</Link>
+          <Link href="/(onboarding)/welcome">Temp</Link>
+          <Link href="/(onboarding)/name">Temp2</Link>
         </View>
       </ScrollView>
     </ContentContainer>

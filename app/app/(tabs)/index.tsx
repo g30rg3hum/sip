@@ -23,7 +23,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GlassView } from "expo-glass-effect";
 import { SymbolView } from "expo-symbols";
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+export const { width: screenWidth, height: screenHeight } =
+  Dimensions.get("window");
 
 export default function Index() {
   const router = useRouter();
