@@ -1,4 +1,4 @@
-import { ACCENT, BORDER, FOREGROUND } from "@/lib/constants/colors";
+import { ACCENT, FOREGROUND } from "@/lib/constants/colors";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 
 export default function TabsLayout() {

@@ -143,7 +143,13 @@ export default function Index() {
         tintColor="rgba(23, 23, 23, 0.75)"
         style={[styles.addButton, { bottom: 16 + insets.bottom }]}
       >
-        <Pressable onPress={() => router.push("/add-drink")}>
+        <Pressable
+          onPress={() => {
+            console.log("test");
+            router.push("/add-drink");
+          }}
+          style={styles.pressableAddButton}
+        >
           <SymbolView
             name="plus"
             style={styles.plusSymbol}
@@ -197,9 +203,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 26,
     borderRadius: 25,
-    padding: 10,
     overflow: "hidden",
     zIndex: 10,
+  },
+  pressableAddButton: {
+    borderRadius: 25,
+    padding: 10,
   },
   plusSymbol: {
     width: 24,

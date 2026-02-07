@@ -35,8 +35,8 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(onboarding)" />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(onboarding)" />
 
         {/* Settings form sheets */}
         <Stack.Screen
