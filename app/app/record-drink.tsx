@@ -83,7 +83,10 @@ export default function AddDrink() {
         </View>
       </View>
 
-      <BigButton onPress={() => {}}>Record</BigButton>
+      <View style={styles.buttonsContainer}>
+        <BigButton onPress={() => {}}>Remove</BigButton>
+        <BigButton onPress={() => {}}>Add</BigButton>
+      </View>
     </SafeAreaView>
   );
 }
@@ -95,6 +98,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   form: {
+    gap: 24,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
     gap: 24,
   },
 });

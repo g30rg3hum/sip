@@ -105,16 +105,14 @@ export default function OnboardingWelcome() {
           </Text>
         </View>
 
-        <View>
-          <BigButton
-            onPress={() => {
-              router.dismissAll();
-              router.replace("/(onboarding)/name");
-            }}
-          >
-            Get started
-          </BigButton>
-        </View>
+        <BigButton
+          onPress={() => {
+            router.dismissAll();
+            router.replace("/(onboarding)/name");
+          }}
+        >
+          Get started
+        </BigButton>
       </SafeAreaView>
     </ContentContainer>
   );

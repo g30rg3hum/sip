@@ -53,7 +53,7 @@ export default function RootLayout() {
 
         {/* Actions form sheets */}
         <Stack.Screen
-          name="add-drink"
+          name="record-drink"
           options={{
             presentation: "formSheet",
             contentStyle: { backgroundColor: "#101319" },

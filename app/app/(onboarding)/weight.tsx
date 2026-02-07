@@ -49,6 +49,7 @@ export default function OnboardingWeight() {
             initial={135}
             units="pounds"
             onValueChange={setWeight}
+            value={weight}
           />
         )}
 
@@ -59,6 +60,7 @@ export default function OnboardingWeight() {
             initial={70}
             units="kg"
             onValueChange={setWeight}
+            value={weight}
           />
         )}
       </View>

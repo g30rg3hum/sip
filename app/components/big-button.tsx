@@ -16,12 +16,13 @@ export default function BigButton({ onPress, children }: Props) {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: PRIMARY,
-    height: 56,
+    maxHeight: 56,
     borderRadius: 32,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 8,
     zIndex: 20,
+    flex: 1,
   },
   text: {
     fontSize: 16,

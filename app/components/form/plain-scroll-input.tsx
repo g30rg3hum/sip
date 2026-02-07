@@ -1,12 +1,13 @@
 import { ACCENT, FOREGROUND, MUTED_FOREGROUND } from "@/lib/constants/colors";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   Dimensions,
+  FlatList,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   View,
+  ViewToken,
 } from "react-native";
 
 const STEP_WIDTH = 48; // px between each value
@@ -22,6 +23,7 @@ interface Props {
   initial: number;
   units: string;
   onValueChange: (value: number) => void;
+  value: number;
 }
 export default function PlainScrollInput({
   min,
@@ -29,62 +31,65 @@ export default function PlainScrollInput({
   initial,
   units,
   onValueChange,
+  value,
 }: Props) {
-  const [value, setValue] = useState(initial);
+  // values are in 1 increments
+  // maintained across re-renders
+  const values = useRef(
+    Array.from({ length: max - min + 1 }, (_, i) => i + min),
+  ).current;
 
-  function handleScroll(e: any) {
-    // how many pixels the ScrollView has scrolled from starting position.
-    const offsetX = Math.max(e.nativeEvent.contentOffset.x, 0);
-    const idx = Math.round(offsetX / STEP_WIDTH);
-    const clamped = Math.min(idx + min, max); // guard by max
-    setValue(clamped);
-    onValueChange?.(clamped);
-  }
+  // returns the same function reference unless deps change
+  // regular function would see a new prop passed in if regular function
+  const handleViewableItemsChanged = useCallback(
+    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+      // for some reason, the center is off, and its actually the start
+      const center = viewableItems[0];
+      if (center?.item != null) {
+        onValueChange?.(center.item);
+      }
+    },
+    [onValueChange],
+  );
 
-  const values = Array.from({ length: max - min + 1 }, (_, i) => i + min);
+  const getItemLayout = useCallback(
+    (_: any, index: number) => ({
+      length: STEP_WIDTH, // length of the item
+      offset: STEP_WIDTH * index, // offset from start of list to start of item
+      index, // index of the item
+    }),
+    [],
+  );
+
+  const renderItem = useCallback(
+    ({ item }: { item: number }) => (
+      <View style={styles.valContainer}>
+        <Text style={item === value ? styles.activeText : styles.inactiveText}>
+          {item}
+        </Text>
+      </View>
+    ),
+    [value], // only rerender if becomes inactive/active due to value.
+  );
 
   return (
     <View style={styles.container}>
       <Text style={styles.unitsText}>{units}</Text>
-      <ScrollView
+      <FlatList
+        data={values}
         horizontal
         showsHorizontalScrollIndicator={false}
         snapToInterval={STEP_WIDTH}
-        contentOffset={{
-          x: (initial - min) * STEP_WIDTH,
-          y: 0,
-        }}
-        scrollEventThrottle={16}
+        initialScrollIndex={initial - min}
+        getItemLayout={getItemLayout}
         contentContainerStyle={{
-          // Centerise
           paddingHorizontal: CENTER - STEP_WIDTH / 2,
         }}
-        onScroll={handleScroll}
-      >
-        {values.map((val) => {
-          const isValue = val === value;
-
-          return (
-            <View
-              key={val}
-              style={[
-                styles.valContainer,
-                { justifyContent: isValue ? "space-between" : "center" },
-              ]}
-            >
-              <Text
-                style={{
-                  color: isValue ? ACCENT : FOREGROUND,
-                  fontFamily: isValue ? "Lexend_700Bold" : "Lexend_400Regular",
-                  fontSize: isValue ? 21 : 18,
-                }}
-              >
-                {val}
-              </Text>
-            </View>
-          );
-        })}
-      </ScrollView>
+        onViewableItemsChanged={handleViewableItemsChanged}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.toString()}
+        windowSize={5} // max items rendered outside of window
+      />
       <Image source={marker} />
     </View>
   );
@@ -103,6 +108,17 @@ const styles = StyleSheet.create({
   valContainer: {
     width: STEP_WIDTH,
     alignItems: "center",
+    justifyContent: "center",
     height: 50,
+  },
+  activeText: {
+    color: ACCENT,
+    fontFamily: "Lexend_700Bold",
+    fontSize: 21,
+  },
+  inactiveText: {
+    color: FOREGROUND,
+    fontFamily: "Lexend_400Regular",
+    fontSize: 18,
   },
 });

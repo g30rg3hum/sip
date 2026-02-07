@@ -141,18 +141,17 @@ export default function Index() {
         isInteractive
         glassEffectStyle="clear"
         tintColor="rgba(23, 23, 23, 0.75)"
-        style={[styles.addButton, { bottom: 16 + insets.bottom }]}
+        style={[styles.addRemoveButton, { bottom: 16 + insets.bottom }]}
       >
         <Pressable
           onPress={() => {
-            console.log("test");
-            router.push("/add-drink");
+            router.push("/record-drink");
           }}
-          style={styles.pressableAddButton}
+          style={styles.pressableAddRemoveButton}
         >
           <SymbolView
-            name="plus"
-            style={styles.plusSymbol}
+            name="plus.forwardslash.minus"
+            style={styles.buttonSymbol}
             tintColor={FOREGROUND}
           />
         </Pressable>
@@ -199,18 +198,18 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  addButton: {
+  addRemoveButton: {
     position: "absolute",
     right: 26,
     borderRadius: 25,
     overflow: "hidden",
     zIndex: 10,
   },
-  pressableAddButton: {
+  pressableAddRemoveButton: {
     borderRadius: 25,
     padding: 10,
   },
-  plusSymbol: {
+  buttonSymbol: {
     width: 24,
     height: 24,
   },
