@@ -30,16 +30,17 @@ export default function Index() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const translateXAnimated = useSharedValue(0);
-  const value = useSharedValue(0); // will then derive y animation from this.
+  const percentageValue = useSharedValue(0); // will then derive y animation from this.
+  const value = useSharedValue(0); // actual amount drank
 
-  const minValue = 0;
-  const maxValue = 100;
-  const endValue = 53;
+  const endPercentageValue = 53; // TODO: hardcoded end value
+  const endValue = 1500; // TODO: hardcoded end value
+
   // can't go lower than min value
   // and can't go higher than max
   const fillPercent = useDerivedValue(() => {
-    return Math.max(minValue, Math.min(maxValue, value.value)) / maxValue;
-  }, [value]); // for y animation.
+    return Math.max(0, Math.min(100, percentageValue.value)) / 100;
+  }, [percentageValue]); // for y animation.
 
   useEffect(() => {
     translateXAnimated.value = withRepeat(
@@ -55,12 +56,16 @@ export default function Index() {
     return fillPercent.value * screenHeight;
   });
 
-  // animate value to the end value
+  // animate values to the end
   useEffect(() => {
+    percentageValue.value = withTiming(endPercentageValue, {
+      duration: 2000,
+    });
+
     value.value = withTiming(endValue, {
       duration: 2000,
     });
-  }, [endValue, value]);
+  }, [percentageValue, value]);
 
   const waveCount = 1;
   // extra wave for animation
@@ -105,16 +110,28 @@ export default function Index() {
     return path ?? Skia.Path.Make();
   }, [translateXAnimated, translateYPercent]);
 
+  // main percentage
   const fontSize = 64;
   const font = useFont(require("@/assets/fonts/Lexend_700Bold.ttf"), fontSize);
-
   const text = useDerivedValue(() => {
-    return Math.round(value.value).toString();
+    return Math.round(percentageValue.value).toString() + "%";
   });
-
   // needs to be derived value because text changes
   const textTranslateX = useDerivedValue(() => {
     const textWidth = font?.getTextWidth(text.value) ?? 0;
+    return screenWidth / 2 - textWidth / 2;
+  });
+
+  // value text
+  const valueFont = useFont(
+    require("@/assets/fonts/Lexend_400Regular.ttf"),
+    16,
+  );
+  const valueText = useDerivedValue(() => {
+    return Math.round(value.value).toString() + "ml";
+  });
+  const valueTextTranslateX = useDerivedValue(() => {
+    const textWidth = valueFont?.getTextWidth(valueText.value) ?? 0;
     return screenWidth / 2 - textWidth / 2;
   });
 
@@ -143,6 +160,14 @@ export default function Index() {
           x={textTranslateX}
           y={screenHeight / 2}
         />
+        <Text
+          text={valueText}
+          font={valueFont}
+          color={FOREGROUND}
+          x={valueTextTranslateX}
+          y={screenHeight / 2 + 54}
+        />
+
         {wave && (
           <Group clip={wave}>
             <Fill color="rgb(47, 100, 129)" />
@@ -152,6 +177,13 @@ export default function Index() {
               color={ACCENT}
               x={textTranslateX}
               y={screenHeight / 2}
+            />
+            <Text
+              text={valueText}
+              font={valueFont}
+              color={ACCENT}
+              x={valueTextTranslateX}
+              y={screenHeight / 2 + 54}
             />
           </Group>
         )}
