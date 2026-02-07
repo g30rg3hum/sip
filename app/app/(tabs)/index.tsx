@@ -30,14 +30,16 @@ export default function Index() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const translateXAnimated = useSharedValue(0);
-  const translateYPercent = useSharedValue(0);
+  const value = useSharedValue(0); // will then derive y animation from this.
 
   const minValue = 0;
   const maxValue = 100;
-  const value = 53;
+  const endValue = 53;
   // can't go lower than min value
   // and can't go higher than max
-  const fillPercent = Math.max(minValue, Math.min(maxValue, value)) / maxValue;
+  const fillPercent = useDerivedValue(() => {
+    return Math.max(minValue, Math.min(maxValue, value.value)) / maxValue;
+  }, [value.value]); // for y animation.
 
   useEffect(() => {
     translateXAnimated.value = withRepeat(
@@ -49,11 +51,16 @@ export default function Index() {
     );
   }, []);
 
+  const translateYPercent = useDerivedValue(() => {
+    return fillPercent.value * screenHeight;
+  });
+
+  // animate value to the end value
   useEffect(() => {
-    translateYPercent.value = withTiming(fillPercent * screenHeight, {
-      duration: 1000,
+    value.value = withTiming(endValue, {
+      duration: 2000,
     });
-  }, [fillPercent, translateYPercent]);
+  }, [endValue, value]);
 
   const waveCount = 1;
   // extra wave for animation
@@ -96,14 +103,20 @@ export default function Index() {
     );
     path?.transform(transformMatrix);
     return path ?? Skia.Path.Make();
-  }, [translateXAnimated]);
+  }, [translateXAnimated, translateYPercent]);
 
   const fontSize = 64;
   const font = useFont(require("@/assets/fonts/Lexend_700Bold.ttf"), fontSize);
 
-  const text = value.toString();
-  const textWidth = font?.getTextWidth(text) ?? 0;
-  const textTranslateX = screenWidth / 2 - textWidth / 2;
+  const text = useDerivedValue(() => {
+    return Math.round(value.value).toString();
+  });
+
+  // needs to be derived value because text changes
+  const textTranslateX = useDerivedValue(() => {
+    const textWidth = font?.getTextWidth(text.value) ?? 0;
+    return screenWidth / 2 - textWidth / 2;
+  });
 
   return (
     <ContentContainer padding={false}>
