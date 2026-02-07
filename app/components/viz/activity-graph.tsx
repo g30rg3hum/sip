@@ -14,6 +14,7 @@ export default function ActivityGraph({ columns, containerWidth }: Props) {
     container: {
       flexDirection: "row",
       flexWrap: "wrap",
+      justifyContent: "center",
     },
     itemContainer: {
       width: itemSize,

@@ -9,8 +9,8 @@ import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 const windowWidth = Dimensions.get("window").width;
 // 28 padding content container
 // 24 padding card container
-// margins on left and right of item; 4
-const activityGraphWidth = windowWidth - 28 * 2 - 24 * 2 - 4 * 2 * 7;
+// margins on left and right of item; 4; extra little spacing to support smaller devices wrapping earlier.
+const activityGraphWidth = windowWidth - 28 * 2 - 24 * 2 - 4.5 * 2 * 7;
 
 export default function Analytics() {
   // workaround
