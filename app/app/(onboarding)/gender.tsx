@@ -43,7 +43,7 @@ export default function OnboardingGender() {
         onPress={async () => {
           const { success } = await submitGender(gender);
           if (success) {
-            return router.navigate("/(onboarding)/height");
+            return router.navigate("/(onboarding)/age");
           }
         }}
       >

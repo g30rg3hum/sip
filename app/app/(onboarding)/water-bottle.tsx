@@ -32,9 +32,9 @@ export default function OnboardingWaterBottle() {
   return (
     <ContentContainer gradientX={0.6}>
       <View style={styles.mainContentContainer}>
-        <Pressable style={styles.backButton} onPress={() => router.back()}>
+        {/* <Pressable style={styles.backButton} onPress={() => router.back()}>
           <Text style={styles.backText}>Back</Text>
-        </Pressable>
+        </Pressable> */}
         <Text style={globalStyles.title}>
           What is the capacity of your water bottle?
         </Text>
@@ -87,6 +87,7 @@ export default function OnboardingWaterBottle() {
 const styles = StyleSheet.create({
   mainContentContainer: {
     flex: 1,
+    paddingTop: 52,
   },
   backButton: {
     marginBottom: 42,

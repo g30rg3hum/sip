@@ -45,7 +45,8 @@ export default function OnboardingClimate() {
           const { success } = await submitClimate(climate);
 
           if (success) {
-            router.navigate("/(onboarding)/water-bottle");
+            router.dismissAll();
+            router.navigate("/(onboarding)/water-target");
           }
         }}
       >
