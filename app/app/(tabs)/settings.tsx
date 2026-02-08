@@ -1,11 +1,14 @@
 import ContentContainer from "@/components/content-container";
-import { BORDER, FOREGROUND, MUTED_FOREGROUND } from "@/lib/constants/colors";
+import { FOREGROUND, MUTED_FOREGROUND } from "@/lib/constants/colors";
 import { GlassView } from "expo-glass-effect";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 export default function Settings() {
   const router = useRouter();
@@ -46,255 +49,269 @@ export default function Settings() {
 
   return (
     <ContentContainer gradientX={0.9} padding={false}>
-      <ScrollView
-        style={{ paddingTop: insets.top + 32, paddingHorizontal: 28 }}
+      <SafeAreaView
+        edges={{ bottom: "additive" }}
+        style={{ paddingBottom: 15 }}
       >
-        <View style={styles.container}>
-          <CardWrapper
-            isInteractive
-            {...glassProps}
-            style={!glassReady && regularContainerStyle}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
-          >
-            <Pressable
-              style={styles.buttonContainer}
-              onPress={() => router.push("/change-name")}
+        <ScrollView
+          style={{
+            paddingTop: insets.top + 32,
+            paddingHorizontal: 28,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.container}>
+            <Text style={styles.header}>About</Text>
+            <CardWrapper
+              isInteractive
+              {...glassProps}
+              style={!glassReady && regularContainerStyle}
+              glassEffectStyle="clear"
+              tintColor="rgba(0, 0, 0, 0.25)"
             >
-              <View style={styles.leftContainer}>
-                <SymbolView
-                  name="person"
-                  style={styles.icon}
-                  tintColor={FOREGROUND}
-                />
-                <Text style={styles.buttonText}>Name</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.buttonValue}>George</Text>
-                <SymbolView
-                  name="chevron.right"
-                  style={styles.chevronIcon}
-                  tintColor={FOREGROUND}
-                />
-              </View>
-            </Pressable>
-          </CardWrapper>
-          <CardWrapper
-            isInteractive
-            {...glassProps}
-            style={!glassReady && regularContainerStyle}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
-          >
-            <Pressable style={styles.buttonContainer}>
-              <View style={styles.leftContainer}>
-                <SymbolView
-                  name="figure"
-                  style={styles.icon}
-                  tintColor={FOREGROUND}
-                />
-                <Text style={styles.buttonText}>Gender</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.buttonValue}>Male</Text>
-                <SymbolView
-                  name="chevron.right"
-                  style={styles.chevronIcon}
-                  tintColor={FOREGROUND}
-                />
-              </View>
-            </Pressable>
-          </CardWrapper>
-          <CardWrapper
-            isInteractive
-            {...glassProps}
-            style={!glassReady && regularContainerStyle}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
-          >
-            <Pressable style={styles.buttonContainer}>
-              <View style={styles.leftContainer}>
-                <SymbolView
-                  name="ruler"
-                  style={styles.icon}
-                  tintColor={FOREGROUND}
-                />
-                <Text style={styles.buttonText}>Height</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.buttonValue}>167 cm</Text>
-                <SymbolView
-                  name="chevron.right"
-                  style={styles.chevronIcon}
-                  tintColor={FOREGROUND}
-                />
-              </View>
-            </Pressable>
-          </CardWrapper>
-          <CardWrapper
-            isInteractive
-            {...glassProps}
-            style={!glassReady && regularContainerStyle}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
-          >
-            <Pressable style={styles.buttonContainer}>
-              <View style={styles.leftContainer}>
-                <SymbolView
-                  name="scalemass"
-                  style={styles.icon}
-                  tintColor={FOREGROUND}
-                />
-                <Text style={styles.buttonText}>Weight</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.buttonValue}>67 kg</Text>
-                <SymbolView
-                  name="chevron.right"
-                  style={styles.chevronIcon}
-                  tintColor={FOREGROUND}
-                />
-              </View>
-            </Pressable>
-          </CardWrapper>
+              <Pressable
+                style={styles.buttonContainer}
+                onPress={() => router.push("/change-name")}
+              >
+                <View style={styles.leftContainer}>
+                  <SymbolView
+                    name="person"
+                    style={styles.icon}
+                    tintColor={FOREGROUND}
+                  />
+                  <Text style={styles.buttonText}>Name</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.buttonValue}>George</Text>
+                  <SymbolView
+                    name="chevron.right"
+                    style={styles.chevronIcon}
+                    tintColor={FOREGROUND}
+                  />
+                </View>
+              </Pressable>
+            </CardWrapper>
+            <CardWrapper
+              isInteractive
+              {...glassProps}
+              style={!glassReady && regularContainerStyle}
+              glassEffectStyle="clear"
+              tintColor="rgba(0, 0, 0, 0.25)"
+            >
+              <Pressable style={styles.buttonContainer}>
+                <View style={styles.leftContainer}>
+                  <SymbolView
+                    name="figure"
+                    style={styles.icon}
+                    tintColor={FOREGROUND}
+                  />
+                  <Text style={styles.buttonText}>Gender</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.buttonValue}>Male</Text>
+                  <SymbolView
+                    name="chevron.right"
+                    style={styles.chevronIcon}
+                    tintColor={FOREGROUND}
+                  />
+                </View>
+              </Pressable>
+            </CardWrapper>
+            <CardWrapper
+              isInteractive
+              {...glassProps}
+              style={!glassReady && regularContainerStyle}
+              glassEffectStyle="clear"
+              tintColor="rgba(0, 0, 0, 0.25)"
+            >
+              <Pressable style={styles.buttonContainer}>
+                <View style={styles.leftContainer}>
+                  <SymbolView
+                    name="ruler"
+                    style={styles.icon}
+                    tintColor={FOREGROUND}
+                  />
+                  <Text style={styles.buttonText}>Height</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.buttonValue}>167 cm</Text>
+                  <SymbolView
+                    name="chevron.right"
+                    style={styles.chevronIcon}
+                    tintColor={FOREGROUND}
+                  />
+                </View>
+              </Pressable>
+            </CardWrapper>
+            <CardWrapper
+              isInteractive
+              {...glassProps}
+              style={!glassReady && regularContainerStyle}
+              glassEffectStyle="clear"
+              tintColor="rgba(0, 0, 0, 0.25)"
+            >
+              <Pressable style={styles.buttonContainer}>
+                <View style={styles.leftContainer}>
+                  <SymbolView
+                    name="scalemass"
+                    style={styles.icon}
+                    tintColor={FOREGROUND}
+                  />
+                  <Text style={styles.buttonText}>Weight</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.buttonValue}>67 kg</Text>
+                  <SymbolView
+                    name="chevron.right"
+                    style={styles.chevronIcon}
+                    tintColor={FOREGROUND}
+                  />
+                </View>
+              </Pressable>
+            </CardWrapper>
 
-          <View style={styles.separator} />
+            <View style={styles.separator} />
 
-          <CardWrapper
-            isInteractive
-            {...glassProps}
-            style={!glassReady && regularContainerStyle}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
-          >
-            <Pressable style={styles.buttonContainer}>
-              <View style={styles.leftContainer}>
-                <SymbolView
-                  name="figure.run"
-                  style={styles.icon}
-                  tintColor={FOREGROUND}
-                />
-                <Text style={styles.buttonText}>Activity</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.buttonValue}>Sedentary</Text>
-                <SymbolView
-                  name="chevron.right"
-                  style={styles.chevronIcon}
-                  tintColor={FOREGROUND}
-                />
-              </View>
-            </Pressable>
-          </CardWrapper>
-          <CardWrapper
-            isInteractive
-            {...glassProps}
-            style={!glassReady && regularContainerStyle}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
-          >
-            <Pressable style={styles.buttonContainer}>
-              <View style={styles.leftContainer}>
-                <SymbolView
-                  name="sun.min"
-                  style={styles.icon}
-                  tintColor={FOREGROUND}
-                />
-                <Text style={styles.buttonText}>Climate</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.buttonValue}>Cold</Text>
-                <SymbolView
-                  name="chevron.right"
-                  style={styles.chevronIcon}
-                  tintColor={FOREGROUND}
-                />
-              </View>
-            </Pressable>
-          </CardWrapper>
-          <CardWrapper
-            isInteractive
-            {...glassProps}
-            style={!glassReady && regularContainerStyle}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
-          >
-            <Pressable style={styles.buttonContainer}>
-              <View style={styles.leftContainer}>
-                <SymbolView
-                  name="waterbottle"
-                  style={styles.icon}
-                  tintColor={FOREGROUND}
-                />
-                <Text style={styles.buttonText}>Water bottle</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.buttonValue}>1.5L</Text>
-                <SymbolView
-                  name="chevron.right"
-                  style={styles.chevronIcon}
-                  tintColor={FOREGROUND}
-                />
-              </View>
-            </Pressable>
-          </CardWrapper>
+            <Text style={[styles.header, { marginTop: -8 }]}>Lifestyle</Text>
 
-          <View style={styles.separator} />
+            <CardWrapper
+              isInteractive
+              {...glassProps}
+              style={!glassReady && regularContainerStyle}
+              glassEffectStyle="clear"
+              tintColor="rgba(0, 0, 0, 0.25)"
+            >
+              <Pressable style={styles.buttonContainer}>
+                <View style={styles.leftContainer}>
+                  <SymbolView
+                    name="figure.run"
+                    style={styles.icon}
+                    tintColor={FOREGROUND}
+                  />
+                  <Text style={styles.buttonText}>Activity</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.buttonValue}>Sedentary</Text>
+                  <SymbolView
+                    name="chevron.right"
+                    style={styles.chevronIcon}
+                    tintColor={FOREGROUND}
+                  />
+                </View>
+              </Pressable>
+            </CardWrapper>
+            <CardWrapper
+              isInteractive
+              {...glassProps}
+              style={!glassReady && regularContainerStyle}
+              glassEffectStyle="clear"
+              tintColor="rgba(0, 0, 0, 0.25)"
+            >
+              <Pressable style={styles.buttonContainer}>
+                <View style={styles.leftContainer}>
+                  <SymbolView
+                    name="sun.min"
+                    style={styles.icon}
+                    tintColor={FOREGROUND}
+                  />
+                  <Text style={styles.buttonText}>Climate</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.buttonValue}>Cold</Text>
+                  <SymbolView
+                    name="chevron.right"
+                    style={styles.chevronIcon}
+                    tintColor={FOREGROUND}
+                  />
+                </View>
+              </Pressable>
+            </CardWrapper>
+            <CardWrapper
+              isInteractive
+              {...glassProps}
+              style={!glassReady && regularContainerStyle}
+              glassEffectStyle="clear"
+              tintColor="rgba(0, 0, 0, 0.25)"
+            >
+              <Pressable style={styles.buttonContainer}>
+                <View style={styles.leftContainer}>
+                  <SymbolView
+                    name="waterbottle"
+                    style={styles.icon}
+                    tintColor={FOREGROUND}
+                  />
+                  <Text style={styles.buttonText}>Water bottle</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.buttonValue}>1.5L</Text>
+                  <SymbolView
+                    name="chevron.right"
+                    style={styles.chevronIcon}
+                    tintColor={FOREGROUND}
+                  />
+                </View>
+              </Pressable>
+            </CardWrapper>
 
-          <CardWrapper
-            isInteractive
-            {...glassProps}
-            style={!glassReady && regularContainerStyle}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
-          >
-            <Pressable style={styles.buttonContainer}>
-              <View style={styles.leftContainer}>
-                <SymbolView
-                  name="target"
-                  style={styles.icon}
-                  tintColor={FOREGROUND}
-                />
-                <Text style={styles.buttonText}>Target</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.buttonValue}>1.5L</Text>
-                <SymbolView
-                  name="chevron.right"
-                  style={styles.chevronIcon}
-                  tintColor={FOREGROUND}
-                />
-              </View>
-            </Pressable>
-          </CardWrapper>
-          <CardWrapper
-            isInteractive
-            {...glassProps}
-            style={!glassReady && regularContainerStyle}
-            glassEffectStyle="clear"
-            tintColor="rgba(0, 0, 0, 0.25)"
-          >
-            <Pressable style={styles.buttonContainer}>
-              <View style={styles.leftContainer}>
-                <SymbolView
-                  name="bell.badge"
-                  style={styles.icon}
-                  tintColor={FOREGROUND}
-                />
-                <Text style={styles.buttonText}>Notifications</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.buttonValue}>1h</Text>
-                <SymbolView
-                  name="chevron.right"
-                  style={styles.chevronIcon}
-                  tintColor={FOREGROUND}
-                />
-              </View>
-            </Pressable>
-          </CardWrapper>
-        </View>
-      </ScrollView>
+            <View style={styles.separator} />
+
+            <Text style={[styles.header, { marginTop: -8 }]}>Preferences</Text>
+
+            <CardWrapper
+              isInteractive
+              {...glassProps}
+              style={!glassReady && regularContainerStyle}
+              glassEffectStyle="clear"
+              tintColor="rgba(0, 0, 0, 0.25)"
+            >
+              <Pressable style={styles.buttonContainer}>
+                <View style={styles.leftContainer}>
+                  <SymbolView
+                    name="target"
+                    style={styles.icon}
+                    tintColor={FOREGROUND}
+                  />
+                  <Text style={styles.buttonText}>Target</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.buttonValue}>1.5L</Text>
+                  <SymbolView
+                    name="chevron.right"
+                    style={styles.chevronIcon}
+                    tintColor={FOREGROUND}
+                  />
+                </View>
+              </Pressable>
+            </CardWrapper>
+            <CardWrapper
+              isInteractive
+              {...glassProps}
+              style={!glassReady && regularContainerStyle}
+              glassEffectStyle="clear"
+              tintColor="rgba(0, 0, 0, 0.25)"
+            >
+              <Pressable style={styles.buttonContainer}>
+                <View style={styles.leftContainer}>
+                  <SymbolView
+                    name="bell.badge"
+                    style={styles.icon}
+                    tintColor={FOREGROUND}
+                  />
+                  <Text style={styles.buttonText}>Notifications</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.buttonValue}>1h</Text>
+                  <SymbolView
+                    name="chevron.right"
+                    style={styles.chevronIcon}
+                    tintColor={FOREGROUND}
+                  />
+                </View>
+              </Pressable>
+            </CardWrapper>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </ContentContainer>
   );
 }
@@ -306,6 +323,12 @@ const styles = StyleSheet.create({
   container: {
     gap: 24,
     alignItems: "center",
+  },
+  header: {
+    alignSelf: "flex-start",
+    fontFamily: "Lexend_700Bold",
+    fontSize: 20,
+    color: FOREGROUND,
   },
   icon: {
     width: 20,
@@ -348,5 +371,6 @@ const styles = StyleSheet.create({
     width: "50%",
     paddingHorizontal: "auto",
     borderColor: "#272A34",
+    marginVertical: 12,
   },
 });

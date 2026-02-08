@@ -40,7 +40,12 @@ export default function ContentContainer({
       </Svg>
       {/* Applies the relevant padding. */}
       {padding ? (
-        <SafeAreaView style={styles.contentContainer}>{children}</SafeAreaView>
+        <SafeAreaView
+          style={styles.contentContainer}
+          edges={{ bottom: "maximum", top: "additive" }}
+        >
+          {children}
+        </SafeAreaView>
       ) : (
         <>{children}</>
       )}

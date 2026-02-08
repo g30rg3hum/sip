@@ -17,7 +17,7 @@ export default function BigButton({ onPress, children, style }: Props) {
   const scale = useSharedValue(1);
 
   const handlePressIn = () => {
-    scale.value = withTiming(1.05, { duration: 200 });
+    scale.value = withTiming(1.1, { duration: 200 });
   };
 
   const handlePressOut = () => {

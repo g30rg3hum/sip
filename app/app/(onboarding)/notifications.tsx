@@ -3,12 +3,16 @@ import ContentContainer from "@/components/content-container";
 import PickerInput from "@/components/form/picker-input";
 import { FOREGROUND, MUTED_FOREGROUND } from "@/lib/constants/colors";
 import { globalStyles } from "@/lib/constants/styles";
+import {
+  requestNotificationPermissions,
+  scheduleNotifications,
+} from "@/lib/helpers/notifications";
 import { GlassView } from "expo-glass-effect";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-const appIcon = require("@/assets/images/app-icon.png");
+const appIcon = require("@/assets/images/icons/ios-regular.png");
 
 const FREQUENCIES = ["30m", "1h", "2h", "3h", "4h", "5h", "6h", "Never"];
 
@@ -64,12 +68,30 @@ export default function OnboardingNotifications() {
         </View>
 
         <BigButton
-          onPress={() => {
+          onPress={async () => {
+            const wantNotifications = notiFrequency !== "Never";
+
+            if (wantNotifications) {
+              // request
+              const success = await requestNotificationPermissions();
+
+              if (!success) {
+                // permissions were not granted
+                // internal alerts within request.
+                return;
+              } else {
+                // schedule the notifications
+                await scheduleNotifications(notiFrequency);
+              }
+            }
+
+            // atp granted and scheduled or "Never"
+
             router.dismissAll();
             router.navigate("/(onboarding)/finish");
           }}
         >
-          Allow and Save
+          {notiFrequency === "Never" ? "Skip" : "Save and Continue"}
         </BigButton>
       </View>
     </ContentContainer>
@@ -105,6 +127,7 @@ const styles = StyleSheet.create({
     height: 32,
     width: 32,
     marginRight: 16,
+    borderRadius: 8,
   },
   notificationTitle: {
     fontSize: 14,
