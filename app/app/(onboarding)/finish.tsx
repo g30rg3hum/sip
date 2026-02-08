@@ -2,6 +2,7 @@ import BigButton from "@/components/big-button";
 import ContentContainer from "@/components/content-container";
 import { MUTED_FOREGROUND, SUCCESS } from "@/lib/constants/colors";
 import { globalStyles } from "@/lib/constants/styles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { SymbolView } from "expo-symbols";
@@ -21,7 +22,8 @@ export default function OnboardingFinish() {
         />
       </View>
       <BigButton
-        onPress={() => {
+        onPress={async () => {
+          await AsyncStorage.setItem("onboardingComplete", "true");
           router.dismissAll();
           router.replace("/");
         }}

@@ -107,7 +107,7 @@ export default function OnboardingWelcome() {
 
         <BigButton
           onPress={() => {
-            router.dismissAll();
+            // router.dismissAll();
             router.replace("/(onboarding)/name");
           }}
         >

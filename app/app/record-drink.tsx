@@ -84,8 +84,8 @@ export default function AddDrink() {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <BigButton onPress={() => {}}>Remove</BigButton>
-        <BigButton onPress={() => {}}>Add</BigButton>
+        <BigButton onPress={() => {}} style={{ flex: 1 }}>Remove</BigButton>
+        <BigButton onPress={() => {}} style={{ flex: 1 }}>Add</BigButton>
       </View>
     </SafeAreaView>
   );

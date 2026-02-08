@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "Sip",
+    "slug": "Sip",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icons/ios-regular.png",
     "scheme": "app",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
@@ -14,7 +14,12 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       },
-      "appleTeamId": "TT6UDTP42R"
+      "appleTeamId": "TT6UDTP42R",
+      "icon": {
+        "light": "./assets/images/icons/ios-regular.png",
+        "dark": "./assets/images/icons/ios-regular.png",
+        "tinted": "./assets/images/icons/ios-tinted.png"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -36,13 +41,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/icons/ios-transparent.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
-          }
+          "backgroundColor": "#11141A"
         }
       ],
       [

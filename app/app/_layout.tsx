@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import "./global.css";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
@@ -7,28 +7,47 @@ import {
   useFonts,
 } from "@expo-google-fonts/lexend";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Appearance } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 SplashScreen.preventAutoHideAsync();
+SplashScreen.setOptions({
+  duration: 500,
+  fade: true,
+});
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     Lexend_400Regular,
     Lexend_700Bold,
   });
+  const [onboardingComplete, setOnboardingComplete] = useState<boolean | null>(
+    null,
+  );
 
   useEffect(() => {
     Appearance.setColorScheme("dark");
   }, []);
 
   useEffect(() => {
+    const checkOnboarding = async () => {
+      const complete =
+        (await AsyncStorage.getItem("onboardingComplete")) === "true";
+
+      if (!complete) {
+        router.replace("/(onboarding)/welcome");
+      }
+      setOnboardingComplete(complete);
+    };
+
     if (loaded || error) {
       SplashScreen.hideAsync();
+      checkOnboarding();
     }
   }, [loaded, error]);
 
-  if (!loaded && !error) {
+  if ((!loaded && !error) || onboardingComplete == null) {
     return null;
   }
 
